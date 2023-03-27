@@ -1,0 +1,475 @@
+<Activity mc:Ignorable="sap sap2010" x:Class="DownloadFlaFileFromTsiPortal" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:s="clr-namespace:System;assembly=mscorlib" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:this="clr-namespace:" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+  <x:Members>
+    <x:Property Name="in_InvoiceReportPageUrl" Type="InArgument(x:String)" />
+    <x:Property Name="in_GlFromDateValue" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_GlToDateValue" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_ExceptionMessage" Type="InArgument(x:String)" />
+    <x:Property Name="in_Timeout" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_NumberOfRetries" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_Config" Type="InArgument(scg:Dictionary(x:String, x:Object))" />
+    <x:Property Name="in_FlatFilePath" Type="InArgument(x:String)" />
+    <x:Property Name="io_TsiAttachTab" Type="InOutArgument(ui:Browser)" />
+    <x:Property Name="in_ElementExistTimeout" Type="InArgument(x:Int32)" />
+    <x:Property Name="in_CustomerNames" Type="InArgument(x:String)" />
+  </x:Members>
+  <this:DownloadFlaFileFromTsiPortal.in_NumberOfRetries>
+    <InArgument x:TypeArguments="x:Int32" />
+  </this:DownloadFlaFileFromTsiPortal.in_NumberOfRetries>
+  <mva:VisualBasic.Settings>
+    <x:Null />
+  </mva:VisualBasic.Settings>
+  <sap:VirtualizedContainerService.HintSize>909.333333333333,3476</sap:VirtualizedContainerService.HintSize>
+  <sap2010:WorkflowViewState.IdRef>DownloadFlaFileFromTsiPortal_1</sap2010:WorkflowViewState.IdRef>
+  <TextExpression.NamespacesForImplementation>
+    <scg:List x:TypeArguments="x:String" Capacity="29">
+      <x:String>System.Activities</x:String>
+      <x:String>System.Activities.Statements</x:String>
+      <x:String>System.Activities.Expressions</x:String>
+      <x:String>System.Activities.Validation</x:String>
+      <x:String>System.Activities.XamlIntegration</x:String>
+      <x:String>Microsoft.VisualBasic</x:String>
+      <x:String>Microsoft.VisualBasic.Activities</x:String>
+      <x:String>System</x:String>
+      <x:String>System.Collections</x:String>
+      <x:String>System.Collections.Generic</x:String>
+      <x:String>System.Data</x:String>
+      <x:String>System.Diagnostics</x:String>
+      <x:String>System.Drawing</x:String>
+      <x:String>System.IO</x:String>
+      <x:String>System.Linq</x:String>
+      <x:String>System.Net.Mail</x:String>
+      <x:String>System.Xml</x:String>
+      <x:String>System.Xml.Linq</x:String>
+      <x:String>UiPath.Core</x:String>
+      <x:String>UiPath.Core.Activities</x:String>
+      <x:String>System.Windows.Markup</x:String>
+      <x:String>System.Collections.ObjectModel</x:String>
+      <x:String>System.Runtime.InteropServices</x:String>
+      <x:String>System.Reflection</x:String>
+      <x:String>System.Activities.DynamicUpdate</x:String>
+      <x:String>UiPath.UIAutomationCore.Contracts</x:String>
+      <x:String>UiPath.UIAutomationNext.Enums</x:String>
+      <x:String>System.Runtime.Serialization</x:String>
+      <x:String>System.ComponentModel</x:String>
+    </scg:List>
+  </TextExpression.NamespacesForImplementation>
+  <TextExpression.ReferencesForImplementation>
+    <scg:List x:TypeArguments="AssemblyReference" Capacity="28">
+      <AssemblyReference>System.Activities</AssemblyReference>
+      <AssemblyReference>Microsoft.VisualBasic</AssemblyReference>
+      <AssemblyReference>mscorlib</AssemblyReference>
+      <AssemblyReference>System.Data</AssemblyReference>
+      <AssemblyReference>System.Data.DataSetExtensions</AssemblyReference>
+      <AssemblyReference>System</AssemblyReference>
+      <AssemblyReference>System.Drawing</AssemblyReference>
+      <AssemblyReference>System.Core</AssemblyReference>
+      <AssemblyReference>System.Xml</AssemblyReference>
+      <AssemblyReference>System.Xml.Linq</AssemblyReference>
+      <AssemblyReference>PresentationFramework</AssemblyReference>
+      <AssemblyReference>WindowsBase</AssemblyReference>
+      <AssemblyReference>PresentationCore</AssemblyReference>
+      <AssemblyReference>System.Xaml</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities</AssemblyReference>
+      <AssemblyReference>UiPath.UiAutomation.Activities</AssemblyReference>
+      <AssemblyReference>System.Memory</AssemblyReference>
+      <AssemblyReference>System.Reflection.Metadata</AssemblyReference>
+      <AssemblyReference>System.ServiceModel</AssemblyReference>
+      <AssemblyReference>Microsoft.Bcl.AsyncInterfaces</AssemblyReference>
+      <AssemblyReference>System.ValueTuple</AssemblyReference>
+      <AssemblyReference>System.ComponentModel.Composition</AssemblyReference>
+      <AssemblyReference>NPOI</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationCore</AssemblyReference>
+      <AssemblyReference>UiPath.System.Activities.Design</AssemblyReference>
+      <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
+      <AssemblyReference>System.Runtime.Serialization</AssemblyReference>
+      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
+    </scg:List>
+  </TextExpression.ReferencesForImplementation>
+  <sap:WorkflowViewStateService.ViewState>
+    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+      <x:Boolean x:Key="ShouldCollapseAll">True</x:Boolean>
+    </scg:Dictionary>
+  </sap:WorkflowViewStateService.ViewState>
+  <Sequence sap2010:Annotation.AnnotationText="This .xaml file downloads flat files from the TSI portal&#xA;Below are rthe paramaeteres which are used:&#xA;1. in_ItemDetailsFlag = Specify TRUE if you ned to download flat file with item details, else specify FALSE for flat file without item details." DisplayName="DownloadFlaFileFromTsiPortal" sap:VirtualizedContainerService.HintSize="919.333333333333,3411.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_1">
+    <sap:WorkflowViewStateService.ViewState>
+      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+        <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+      </scg:Dictionary>
+    </sap:WorkflowViewStateService.ViewState>
+    <ui:LogMessage DisplayName="Log Message: Download Flat file flow started" sap:VirtualizedContainerService.HintSize="877.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_7" Level="Info" Message="[&quot;TSI: Download flat file flow - Started&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+    <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[io_TsiAttachTab]" BrowserType="Chrome" DisplayName="Attach Browser: TSI portal home page" sap:VirtualizedContainerService.HintSize="877.333333333333,2988" sap2010:WorkflowViewState.IdRef="BrowserScope_1" InformativeScreenshot="948656dbc0b3402986033c3f43db0ef2">
+      <ui:BrowserScope.Body>
+        <ActivityAction x:TypeArguments="x:Object">
+          <ActivityAction.Argument>
+            <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+          </ActivityAction.Argument>
+          <Sequence DisplayName="Do" sap:VirtualizedContainerService.HintSize="843.333333333333,2802" sap2010:WorkflowViewState.IdRef="Sequence_2">
+            <Sequence.Variables>
+              <Variable x:TypeArguments="x:Boolean" Name="isInvoiceReportPageExists" />
+            </Sequence.Variables>
+            <sap:WorkflowViewStateService.ViewState>
+              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+              </scg:Dictionary>
+            </sap:WorkflowViewStateService.ViewState>
+            <ui:LogMessage DisplayName="Log Message: Navigating to Invoice details report page" sap:VirtualizedContainerService.HintSize="801.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_1" Level="Info" Message="[&quot;Navigating to Invoice details report page&quot;]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:LogMessage>
+            <ui:NavigateTo Browser="{x:Null}" sap2010:Annotation.AnnotationText="Navigates to invoice details report page" DisplayName="Navigate To: Invoice report page URL" sap:VirtualizedContainerService.HintSize="801.333333333333,89.3333333333333" sap2010:WorkflowViewState.IdRef="NavigateTo_2" Url="[in_InvoiceReportPageUrl]">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:NavigateTo>
+            <ui:UiElementExists DisplayName="Element Exists: TSI invoice page " Exists="[isInvoiceReportPageExists]" sap:VirtualizedContainerService.HintSize="801.333333333333,106" sap2010:WorkflowViewState.IdRef="UiElementExists_2">
+              <ui:UiElementExists.Target>
+                <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="28046c39-94bd-4862-a906-d57e019478ac" InformativeScreenshot="e09b5d3a6305d6b0c7f3d03b93ecad88" Selector="&lt;webctrl tag='B' aaname='Customer Invoice Header/Details RPA Report' /&gt;" TimeoutMS="[in_ElementExistTimeout]" WaitForReady="INTERACTIVE" />
+              </ui:UiElementExists.Target>
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+            </ui:UiElementExists>
+            <If sap2010:Annotation.AnnotationText="Checks if Invoice details report page exists or not.&#xA;If no, it throws exception" Condition="[isInvoiceReportPageExists]" DisplayName="If: TSI invoice report page exists" sap:VirtualizedContainerService.HintSize="801.333333333333,2300" sap2010:WorkflowViewState.IdRef="If_1">
+              <sap:WorkflowViewStateService.ViewState>
+                <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                  <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                  <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                </scg:Dictionary>
+              </sap:WorkflowViewStateService.ViewState>
+              <If.Then>
+                <Sequence DisplayName="Customer invoice page found" sap:VirtualizedContainerService.HintSize="555.333333333333,2094" sap2010:WorkflowViewState.IdRef="Sequence_6">
+                  <Sequence.Variables>
+                    <Variable x:TypeArguments="s:String[]" Name="ArrCustomerName" />
+                    <Variable x:TypeArguments="s:String[]" Name="ArrFlatFiles" />
+                    <Variable x:TypeArguments="x:String" Name="GlFromDate" />
+                    <Variable x:TypeArguments="x:String" Name="GlToDate" />
+                  </Sequence.Variables>
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message: Customer invoice" sap:VirtualizedContainerService.HintSize="513.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_9" Level="Info" Message="[&quot;Customer invoice page found&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                  <Assign DisplayName="Split Company Name" sap:VirtualizedContainerService.HintSize="513.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_1">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[ArrCustomerName]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[in_CustomerNames.Split(","c)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" DisplayName="Invoke CreateSharedDriveFolder workflow" sap:VirtualizedContainerService.HintSize="513.333333333333,114" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_3" UnSafe="False" WorkflowFileName="SharedDrive\CreateSharedDriveFolder.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FolderPath">[in_FlatFilePath]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:InvokeWorkflowFile>
+                  <Assign DisplayName="Get old Flat files from local" sap:VirtualizedContainerService.HintSize="513.333333333333,62" sap2010:WorkflowViewState.IdRef="Assign_2">
+                    <Assign.To>
+                      <OutArgument x:TypeArguments="s:String[]">[ArrFlatFiles]</OutArgument>
+                    </Assign.To>
+                    <Assign.Value>
+                      <InArgument x:TypeArguments="s:String[]">[Directory.GetFiles(in_FlatFilePath)]</InArgument>
+                    </Assign.Value>
+                  </Assign>
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For each old flat file" sap:VirtualizedContainerService.HintSize="513.333333333333,52.6666666666667" sap2010:WorkflowViewState.IdRef="ForEach`1_3" Values="[ArrFlatFiles]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="item" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body: Delete local file" sap:VirtualizedContainerService.HintSize="242,144.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_9">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:DeleteFileX DisplayName="Delete flat File" sap:VirtualizedContainerService.HintSize="200,52.6666666666667" sap2010:WorkflowViewState.IdRef="DeleteFileX_1" Path="[item]" />
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">False</x:Boolean>
+                        <x:Boolean x:Key="IsExpanded">False</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                  <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="Enter details on TSI portal - GL date etc" DisplayName="Invoke EnterDetailsOnTsiDownloadFile workflow" sap:VirtualizedContainerService.HintSize="513.333333333333,144.666666666667" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_1" UnSafe="False" WorkflowFileName="TSIPortal\EnterDetailsOnTsiDownloadFile.xaml">
+                    <ui:InvokeWorkflowFile.Arguments>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_Timeout">[CInt(in_Config("Timeout").ToString)]</InArgument>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_GlFromDateValue">[in_GlFromDateValue]</InArgument>
+                      <InArgument x:TypeArguments="x:Int32" x:Key="in_GlToDateValue">[in_GlToDateValue]</InArgument>
+                      <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                      <InArgument x:TypeArguments="x:String" x:Key="in_FlatFilePath">[in_FlatFilePath]</InArgument>
+                      <InOutArgument x:TypeArguments="ui:Browser" x:Key="io_TsiAttachTab">[io_TsiAttachTab]</InOutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_GlFromDate">[GlFromDate]</OutArgument>
+                      <OutArgument x:TypeArguments="x:String" x:Key="out_GlToDate">[GlToDate]</OutArgument>
+                    </ui:InvokeWorkflowFile.Arguments>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:InvokeWorkflowFile>
+                  <ui:ForEach x:TypeArguments="x:String" CurrentIndex="{x:Null}" DisplayName="For Each Customer" sap:VirtualizedContainerService.HintSize="513.333333333333,1232" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[ArrCustomerName]">
+                    <ui:ForEach.Body>
+                      <ActivityAction x:TypeArguments="x:String">
+                        <ActivityAction.Argument>
+                          <DelegateInArgument x:TypeArguments="x:String" Name="itemCustomer" />
+                        </ActivityAction.Argument>
+                        <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="476.666666666667,1107.33333333333" sap2010:WorkflowViewState.IdRef="Sequence_7">
+                          <sap:WorkflowViewStateService.ViewState>
+                            <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                              <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                            </scg:Dictionary>
+                          </sap:WorkflowViewStateService.ViewState>
+                          <ui:BrowserScope SearchScope="{x:Null}" Selector="{x:Null}" TimeoutMS="{x:Null}" UiBrowser="{x:Null}" Browser="[io_TsiAttachTab]" BrowserType="Chrome" DisplayName="Attach Browser: TSI Portal" sap:VirtualizedContainerService.HintSize="434.666666666667,830.666666666667" sap2010:WorkflowViewState.IdRef="BrowserScope_2" InformativeScreenshot="096d0b045dfbd9567c48d70012db29db">
+                            <ui:BrowserScope.Body>
+                              <ActivityAction x:TypeArguments="x:Object">
+                                <ActivityAction.Argument>
+                                  <DelegateInArgument x:TypeArguments="x:Object" Name="ContextTarget" />
+                                </ActivityAction.Argument>
+                                <Sequence DisplayName="Flat file Customer" sap:VirtualizedContainerService.HintSize="400.666666666667,644.666666666667" sap2010:WorkflowViewState.IdRef="Sequence_8">
+                                  <sap:WorkflowViewStateService.ViewState>
+                                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                      <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                    </scg:Dictionary>
+                                  </sap:WorkflowViewStateService.ViewState>
+                                  <ui:LogMessage DisplayName="Log Message" sap:VirtualizedContainerService.HintSize="358.666666666667,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_11" Level="Info" Message="[&quot;Downloading file for customer :&quot;+itemCustomer]">
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:LogMessage>
+                                  <ui:SelectItem AlterIfDisabled="{x:Null}" ContinueOnError="{x:Null}" DelayAfter="{x:Null}" DelayBefore="{x:Null}" DisplayName="Select Current Customer" sap:VirtualizedContainerService.HintSize="358.666666666667,134" sap2010:WorkflowViewState.IdRef="SelectItem_1" Item="[itemCustomer.ToUpper]">
+                                    <ui:SelectItem.Items>
+                                      <scg:List x:TypeArguments="x:String" Capacity="50">
+                                        <x:String>All</x:String>
+                                        <x:String>A*STAR RESEARCH ENTITIES</x:String>
+                                        <x:String>ADVANCED MICRO DEVICES (SINGAPORE) PTE LTD</x:String>
+                                        <x:String>ADVANCED MICRO FOUNDRY PTE. LTD.</x:String>
+                                        <x:String>AFPD PTE LTD</x:String>
+                                        <x:String>ALLEGRO MICROSYSTEM PHILIPPINES, INC.</x:String>
+                                        <x:String>ALLEGRO MICROSYSTEMS, LLC</x:String>
+                                        <x:String>AMKOR TECHNOLOGY PHILIPPINES INC</x:String>
+                                        <x:String>AMS ASIA INC.</x:String>
+                                        <x:String>AMS SENSORS ASIA PTE. LTD.</x:String>
+                                        <x:String>ANALOG DEVICES GEN TRIAS INC.</x:String>
+                                        <x:String>ANALOG DEVICES SDN.BHD.</x:String>
+                                        <x:String>ASE ELECTRONICS (M) SDN. BHD.</x:String>
+                                        <x:String>ASE SINGAPORE PTE LTD</x:String>
+                                        <x:String>AUTOMATED TECHNOLOGY (PHIL.) INC</x:String>
+                                        <x:String>AVAGO TECHNOLOGIES (MALAYSIA) SDN BHD</x:String>
+                                        <x:String>AVAGO TECHNOLOGIES INTERNATIONAL SALES PTE LIMITED</x:String>
+                                        <x:String>BROADCOM INTERNATIONAL PTE LTD</x:String>
+                                        <x:String>BROADCOM SINGAPORE PTE LTD</x:String>
+                                        <x:String>CANON SINGAPORE PTE LTD</x:String>
+                                        <x:String>CARSEM (M) SDN BHD (124522-U)</x:String>
+                                        <x:String>FABRINET CO., LTD.</x:String>
+                                        <x:String>FEINMETALL SINGAPORE PTE LTD</x:String>
+                                        <x:String>FUJI ELECTRIC (MALAYSIA) SDN. BHD.</x:String>
+                                        <x:String>GLOBALFOUNDRIES SINGAPORE PTE. LTD.</x:String>
+                                        <x:String>HANA MICROELECTRONICS PUBLIC COMPANY LIMITED</x:String>
+                                        <x:String>HERMES-EPITEK CORPORATION PTE LTD</x:String>
+                                        <x:String>HP SINGAPORE (PRIVATE) LIMITED</x:String>
+                                        <x:String>INARI INTEGRATED SYSTEMS SDN BHD</x:String>
+                                        <x:String>INFINEON TECHNOLOGIES (KULIM) SDN BHD (679693-W)</x:String>
+                                        <x:String>INFINEON TECHNOLOGIES (PENANG) SDN. BHD.</x:String>
+                                        <x:String>INTEL CORPORATION</x:String>
+                                        <x:String>INTEL ELECTRONICS (MALAYSIA) SDN BHD</x:String>
+                                        <x:String>INTEL MICROELECTRONICS (M) SDN BHD</x:String>
+                                        <x:String>INTEL MSC SDN BHD</x:String>
+                                        <x:String>INTEL TECHNOLOGY SDN BHD</x:String>
+                                        <x:String>LIFE TECHNOLOGIES HOLDINGS PTE LTD</x:String>
+                                        <x:String>LUMILEDS SINGAPORE PTE LTD</x:String>
+                                        <x:String>MAXLINEAR ASIA SINGAPORE PRIVATE LIMITED</x:String>
+                                        <x:String>MICROCHIP TECHNOLOGY OPERATIONS (PHILIPPINES) CORPORATION</x:String>
+                                        <x:String>MICRON SEMICONDUCTOR ASIA OPERATIONS PTE. LTD.</x:String>
+                                        <x:String>MICRON TECHNOLOGY OPERATIONS INDIA LLP</x:String>
+                                        <x:String>MIMOS BERHAD</x:String>
+                                        <x:String>Marvell Asia Pte Ltd</x:String>
+                                        <x:String>NATIONAL UNIVERSITY OF SINGAPORE</x:String>
+                                        <x:String>NIKON (THAILAND) CO., LTD</x:String>
+                                        <x:String>NXP MALAYSIA SDN. BHD.</x:String>
+                                        <x:String>NXP MANUFACTURING (THAILAND) LTD.</x:String>
+                                        <x:String>ON SEMICONDUCTOR CEBU PHILIPPINES INC.</x:String>
+                                        <x:String>ON SEMICONDUCTOR MALAYSIA SDN BHD</x:String>
+                                      </scg:List>
+                                    </ui:SelectItem.Items>
+                                    <ui:SelectItem.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="983ec009-3c87-4fb5-a149-840293803c60" InformativeScreenshot="072163c9a7d2e81157c97bf34c55633d" Selector="&lt;webctrl tag='SELECT' rowName='Customer' /&gt;">
+                                        <ui:Target.TimeoutMS>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:Target.TimeoutMS>
+                                        <ui:Target.WaitForReady>
+                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                        </ui:Target.WaitForReady>
+                                      </ui:Target>
+                                    </ui:SelectItem.Target>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:SelectItem>
+                                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" SendWindowMessages="{x:Null}" ClickType="CLICK_SINGLE" DelayMS="[CInt(in_Config(&quot;DelayAfter&quot;).ToString)]" DisplayName="Click: Submit button" sap:VirtualizedContainerService.HintSize="358.666666666667,106" sap2010:WorkflowViewState.IdRef="Click_1" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="2654853b-5a0f-4260-b22d-fab907a17412" InformativeScreenshot="605c847314010e1e15e8c3c26e53df73" Selector="&lt;webctrl tag='INPUT' aaname='*Submit*' /&gt;" TimeoutMS="[in_Timeout]" WaitForReady="INTERACTIVE" />
+                                    </ui:Click.Target>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:Click>
+                                  <ui:Click AlterIfDisabled="{x:Null}" DelayBefore="{x:Null}" DelayMS="{x:Null}" SendWindowMessages="{x:Null}" sap2010:Annotation.AnnotationText="Allow multiple download popup" ClickType="CLICK_SINGLE" ContinueOnError="True" DisplayName="Click on Allow Button" sap:VirtualizedContainerService.HintSize="358.666666666667,98" sap2010:WorkflowViewState.IdRef="Click_2" KeyModifiers="None" MouseButton="BTN_LEFT" SimulateClick="True">
+                                    <ui:Click.CursorPosition>
+                                      <ui:CursorPosition Position="Center">
+                                        <ui:CursorPosition.OffsetX>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetX>
+                                        <ui:CursorPosition.OffsetY>
+                                          <InArgument x:TypeArguments="x:Int32" />
+                                        </ui:CursorPosition.OffsetY>
+                                      </ui:CursorPosition>
+                                    </ui:Click.CursorPosition>
+                                    <ui:Click.Target>
+                                      <ui:Target ClippingRegion="{x:Null}" Element="{x:Null}" Id="26b7bd5b-04fb-4ce2-80f3-c870f6cd81ee" InformativeScreenshot="39cd3319232e3ffa0130f29b90b3ccc8" Selector="&lt;wnd app='chrome.exe' cls='Chrome_WidgetWin_*' title='*' /&gt;&lt;ctrl name='**' role='dialog' /&gt;&lt;ctrl name='Allow' role='push button' /&gt;" TimeoutMS="[CInt(in_Config(&quot;TSI_FileDownloadDelay&quot;).ToString)]">
+                                        <ui:Target.WaitForReady>
+                                          <InArgument x:TypeArguments="ui:WaitForReady" />
+                                        </ui:Target.WaitForReady>
+                                      </ui:Target>
+                                    </ui:Click.Target>
+                                    <sap:WorkflowViewStateService.ViewState>
+                                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                      </scg:Dictionary>
+                                    </sap:WorkflowViewStateService.ViewState>
+                                  </ui:Click>
+                                </Sequence>
+                              </ActivityAction>
+                            </ui:BrowserScope.Body>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:BrowserScope>
+                          <ui:InvokeWorkflowFile ArgumentsVariable="{x:Null}" ContinueOnError="{x:Null}" sap2010:Annotation.AnnotationText="This .xaml file stores flat file on shared folder" DisplayName="Invoke StoreFileOnSharedDrive workflow" sap:VirtualizedContainerService.HintSize="434.666666666667,144.666666666667" sap2010:WorkflowViewState.IdRef="InvokeWorkflowFile_2" UnSafe="False" WorkflowFileName="TSIPortal\StoreFileOnSharedDrive.xaml">
+                            <ui:InvokeWorkflowFile.Arguments>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_SourceFolderPath">[in_Config("DirectoryPath").ToString+Environment.UserName+in_Config("DowonloadFilePath").ToString]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_ExceptionMessage">[in_Config("ExcpMsg_DownloadFileMissing").ToString]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_DestinationFolderPath">[in_FlatFilePath]</InArgument>
+                              <InArgument x:TypeArguments="scg:Dictionary(x:String, x:Object)" x:Key="in_Config">[in_Config]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_CustomerName">[itemCustomer]</InArgument>
+                              <InArgument x:TypeArguments="x:String" x:Key="in_GlDate">[GlFromDate+"to"+GlToDate]</InArgument>
+                            </ui:InvokeWorkflowFile.Arguments>
+                            <sap:WorkflowViewStateService.ViewState>
+                              <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                                <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                                <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                                <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                              </scg:Dictionary>
+                            </sap:WorkflowViewStateService.ViewState>
+                          </ui:InvokeWorkflowFile>
+                        </Sequence>
+                      </ActivityAction>
+                    </ui:ForEach.Body>
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:ForEach>
+                </Sequence>
+              </If.Then>
+              <If.Else>
+                <Sequence DisplayName="Customer invoice page missing" sap:VirtualizedContainerService.HintSize="200,69.3333333333333" sap2010:WorkflowViewState.IdRef="Sequence_10">
+                  <sap:WorkflowViewStateService.ViewState>
+                    <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                      <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+                    </scg:Dictionary>
+                  </sap:WorkflowViewStateService.ViewState>
+                  <ui:LogMessage DisplayName="Log Message: Customer invoice page missing" sap:VirtualizedContainerService.HintSize="334,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_10" Level="Error" Message="[&quot;Customer invoice page missing&quot;]">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsPinned">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </ui:LogMessage>
+                  <Throw sap2010:Annotation.AnnotationText="Throws TSI portal: Invoice details report page not available exception" DisplayName="Throw: TSI portal invoice repor page not available" Exception="[new BusinessRuleException(in_ExceptionMessage)]" sap:VirtualizedContainerService.HintSize="334,84" sap2010:WorkflowViewState.IdRef="Throw_1">
+                    <sap:WorkflowViewStateService.ViewState>
+                      <scg:Dictionary x:TypeArguments="x:String, x:Object">
+                        <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
+                      </scg:Dictionary>
+                    </sap:WorkflowViewStateService.ViewState>
+                  </Throw>
+                </Sequence>
+              </If.Else>
+            </If>
+          </Sequence>
+        </ActivityAction>
+      </ui:BrowserScope.Body>
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:BrowserScope>
+    <ui:LogMessage DisplayName="Log Message: Download Flat file flow ended" sap:VirtualizedContainerService.HintSize="877.333333333333,94.6666666666667" sap2010:WorkflowViewState.IdRef="LogMessage_8" Level="Info" Message="[&quot;TSI: Download flat file flow - Ended&quot;]">
+      <sap:WorkflowViewStateService.ViewState>
+        <scg:Dictionary x:TypeArguments="x:String, x:Object">
+          <x:Boolean x:Key="IsPinned">True</x:Boolean>
+          <x:Boolean x:Key="IsExpanded">True</x:Boolean>
+        </scg:Dictionary>
+      </sap:WorkflowViewStateService.ViewState>
+    </ui:LogMessage>
+  </Sequence>
+</Activity>
